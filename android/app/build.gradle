@@ -1,0 +1,53 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    // O plugin do Flutter precisa ser aplicado após os plugins de Android e Kotlin
+    id "dev.flutter.flutter-gradle-plugin"
+    id 'com.google.gms.google-services' // Adicionado para o Firebase
+}
+
+android {
+    namespace = "com.union.grovegarage2"
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
+    defaultConfig {
+        applicationId = "com.union.grovegarage2" // ID do aplicativo
+        minSdk = flutter.minSdkVersion // Configuração mínima do SDK
+        targetSdk = flutter.targetSdkVersion // Configuração do SDK de destino
+        versionCode = flutter.versionCode // Código de versão
+        versionName = flutter.versionName // Nome da versão
+        resValue "string", "applicationName", "Grove Garage 2" // Nome do aplicativo
+    }
+
+    buildTypes {
+        release {
+            signingConfig signingConfigs.debug // Configuração para debug
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}
+
+dependencies {
+    // Importar o BoM do Firebase (Bill of Materials)
+    implementation platform('com.google.firebase:firebase-bom:33.6.0') // Certifique-se de usar a versão mais recente
+
+    // Dependências do Firebase (adicione as que precisar)
+    implementation 'com.google.firebase:firebase-analytics' // Exemplo: Firebase Analytics
+    // Adicione outras dependências do Firebase aqui
+}
+
+// Aplicar o plugin do Google Services
+apply plugin: 'com.google.gms.google-services'
